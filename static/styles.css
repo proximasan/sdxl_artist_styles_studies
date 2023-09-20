@@ -1,0 +1,515 @@
+@font-face {
+  font-family: 'JetBrainsMono';
+  src: url('Jetbrain/JetBrainsMono-VariableFont_wght.woff2') format('woff2'),
+       url('Jetbrain/JetBrainsMono-VariableFont_wght.woff') format('woff'),
+       url('Jetbrain/JetBrainsMono-VariableFont_wght.eot') format('embedded-opentype');
+  font-weight: 400;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'Oxygen';
+  src: url('Oxygen/Oxygen-Regular.woff2') format('woff2'),
+       url('Oxygen/Oxygen-Regular.woff') format('woff'),
+       url('Oxygen/Oxygen-Regular.eot') format('embedded-opentype');
+  font-weight: 400;
+  font-style: normal;
+}
+
+body { 
+    font-family: 'JetBrainsMono', sans-serif;
+    color: #b3b3b3;
+    background-color:#121212;
+    cursor: auto;
+}
+.ascii-art {
+    margin-bottom: 0;
+}
+
+.site-title {
+    margin-top: 0;
+}
+.hf-logo {
+    width: 38px;
+    height: 38px;
+    top: 10px;
+    position: relative;
+}
+.custom-cursor-button {
+    background: url('2_48.png') no-repeat;
+    width: 48px; /* Set the width to match the image */
+    height: 48px; /* Set the height to match the image */
+    border: none; /* Remove the default button border */
+    cursor: pointer; /* Change the cursor to a pointer when hovering over the button */
+    top: 10px;
+    position: relative;
+}
+
+.custom-cursor-button:hover {
+    background: url('1_48.png') no-repeat;
+}
+
+.github-icon {
+  font-size: 24px; /* You can adjust the size as needed */
+  position: fixed;
+  top: 10px; /* Adjust positioning as needed */
+  right: 10px; /* Adjust positioning as needed */
+  z-index: 1000; /* To make sure it stays on top of other elements */
+}
+.gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1rem;
+  width: calc(100% - 2rem);
+  margin: 1rem;
+}
+.gallery-item {
+    margin: 10px;
+    position: relative;
+    overflow: hidden;
+}
+a {
+  color: #5e43f3;
+}
+/* Container for alphabetical tabs */
+#alphabetical-tabs {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-bottom: 1rem;
+    font-family: 'Oxygen', sans-serif;
+}
+/* Center content-wrapper */
+.content-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align:center;
+}
+.flex1 {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+.return-to-index {
+  text-decoration: none; /* Remove underline */
+  font-size: 1.5rem; /* Increase the font size */
+  display: block; /* Change to 'block' to occupy the full width of the parent */
+  margin: 1rem auto; /* Add top and bottom margin and auto left and right margin to center the link */
+  text-align: center; /* Center the text inside the link */
+}
+.inner1 {
+  margin: 10px;
+}
+
+.image-container2 {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0px;
+  width: 100%;
+  max-width: 90%;
+  margin: auto; /* Add this line to center the container */
+}
+
+.side-by-side-image {
+  width: 100%;
+  object-fit: cover; /* Change to 'contain' if you want to ensure the entire image is visible */
+}
+/* links */
+.link-orange {
+  color: #FF8A33;
+}
+
+.link-pink {
+  color: #FF33CA;
+}
+
+.link-purple {
+  color: #9333FF;
+}
+
+.link-green {
+  color: #118828;
+}
+/* Center search bar form */
+form {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 1rem;
+    padding-bottom: 1rem;
+}
+/* Individual alphabetical tab */
+#alphabetical-tabs a {
+    display: inline-block;
+    padding: 0.5rem 0.8rem;
+    margin: 0 0.25rem;
+    text-decoration: none;
+    color: #ffffff;
+    background-color: #5e43f3;
+    border-radius: 4px;
+    font-size: 1rem;
+    font-weight: bold;
+    transition: background-color 0.2s;
+}
+
+/* Alphabetical tab hover effect */
+#alphabetical-tabs a:hover, #alphabetical-tabs .selected-letter {
+    background-color: #46424f;
+}
+.lightbox-artist-name {
+    color: #999;
+    color: #fff;
+    font-size: 1.2em;
+    margin: 0; /* Change the margin here */
+    text-align: center;
+    font-family: JetBrainsMono;
+}
+.lightbox img {
+    width: 50%; /* use width instead of max-width */
+    max-height: 95vh; /* use viewport height units */
+    object-fit: contain; /* preserve the aspect ratio of the image */
+}
+
+#lightboxImage1 {
+    display: inline-block;
+    position: relative;
+}
+/* Container for search form */
+form {
+    margin-bottom: 1rem;
+}
+
+/* Search bar input */
+form input[type="text"] {
+    padding: 0.5rem;
+    font-size: 1rem;
+    border: 1px solid #1a1625;
+    border-radius: 4px;
+    width: 300px;
+    outline: none;
+    transition: border-color 0.2s;
+    background-color: #46424f;
+    color: #ffffff;
+}
+
+/* Search bar input focus effect */
+form input[type="text"]:focus {
+    border-color: #ffffff;
+}
+
+/* Search button */
+form button {
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    color: #ffffff;
+    background-color: #46424f;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-left: 0.5rem;
+    transition: background-color 0.2s;
+}
+
+/* Search button hover effect */
+form button:hover {
+    background-color: #5e5a66;
+}
+#tag-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+    margin-bottom: 16px;
+    justify-content: center;
+    font-family: 'Oxygen', sans-serif;
+}
+
+#tag-row a {
+    background-color: #2f2b3a;
+    border-radius: 4px;
+    padding: 4px 8px;
+    text-decoration: none;
+    color: #ffffff;
+}
+
+#tag-row a:hover, #tag-row .selected-tag {
+    background-color: #908d96;
+}
+
+.artist-name {
+    cursor: copy;
+    display: inline-block;
+    font-weight: 400;
+}
+
+.close-button {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  border: none;
+  background: none;
+  color: #fff;
+  font-size: 1.2em;
+  cursor: pointer;
+  font-family: JetBrainsMono;
+}
+
+.lightbox-content {
+    display: flex;
+    flex-direction: row; /* Align children horizontally */
+    align-items: center;
+    justify-content: center;
+}
+.lightbox-image-wrapper {
+    display: flex;
+    flex-direction: column; /* Stack children vertically */
+    align-items: center;
+    justify-content: center;
+    height: 100%; /* Full height */
+}
+
+.lightbox-image-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.lightbox img {
+    width: 50%; /* use width instead of max-width */
+    max-height: 95vh; /* use viewport height units */
+    object-fit: contain; /* preserve the aspect ratio of the image */
+}
+.artist-name-container {
+    padding: 5px;
+    background-color: transparent;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    text-align: center; /* Center the text */
+    width: 100%; /* Full width */
+}
+
+.image-container {
+    position: relative;
+    cursor: zoom-in;
+}
+
+img {
+    width: 100%;
+    height: auto;
+}
+.hover-image {
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+}
+@media (hover: hover) and (pointer: fine) {
+    .image-container:hover .hover-image {
+        display: block;
+        opacity: 1; /* Add this line */
+    }
+}
+.selected-letter {
+  color: #ff9900; /* Change this to the desired color */
+}
+body.lightbox-open {
+    overflow: hidden;
+    width: 100%;
+    /* Add this line to maintain the scroll position */
+    top: 0;
+    left: 0;
+}
+
+.lightbox {
+  display: flex; /* Use flex instead of grid */
+  justify-content: center; /* Horizontally align items in the center */
+  align-items: center; /* Vertically align items in the center */
+  flex-wrap: wrap; /* Allow items to wrap onto multiple lines if necessary */
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.8);
+  text-align: center;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.lightbox-arrow {
+    position: absolute;
+    top: 50%;
+    width: 50px;
+    height: 50px;
+    font-size: 2em;
+    color: #fff;
+    text-align: center;
+    line-height: 50px;
+    cursor: pointer;
+    background-color: transparent;
+    z-index: 1000; /* To make sure it stays on top of other elements */
+}
+
+.left-arrow {
+    left: 10px;
+}
+
+.right-arrow {
+    right: 10px;
+}
+
+body.custom-cursor, 
+body.custom-cursor p, 
+body.custom-cursor input, 
+body.custom-cursor button {
+    cursor: url('1_48.png') 0 0, auto;
+}
+
+body.custom-cursor .artist-name, 
+body.custom-cursor a,
+body.custom-cursor .close-button,
+body.custom-cursor .lightbox-arrow,
+body.custom-cursor form button {
+    cursor: url('2_48.png') 0 0, copy;
+}
+
+body.custom-cursor .hover-image {
+    cursor: url('3_48.png') 0 0, zoom-in;
+}
+@keyframes rain {
+    0% {
+        transform: translateY(0);
+    }
+    100% {
+        transform: translateY(100vh);  /* This moves the image to the bottom of the viewport */
+    }
+}
+
+.raining-image {
+    width: 48px;
+    height: 48px;
+    position: absolute;
+    animation-name: rain;
+    animation-timing-function: linear;
+    animation-fill-mode: forwards;
+}
+
+/* CSS for Desktop */
+@media (min-width: 768px) {
+    .lightbox-content {
+        flex-direction: row;
+        justify-content: space-between;
+    }
+
+    .lightbox-image-container {
+        flex-direction: row; /* Line up the images */
+    }
+
+    .lightbox img {
+        width: 50%;
+        max-height: 95vh;
+        object-fit: contain;
+    }
+
+    .artist-name-container {
+        /* Remove position, top, left, and transform properties */
+    }
+}
+
+/* CSS for Mobile */
+@media (max-width: 767px) {
+    
+    /* Reduce font-size for h1 on smaller screens */
+    h1 {
+        font-size: 1.5rem;
+    }
+
+    /* Reduce font-size for p on smaller screens */
+    p {
+        font-size: 0.8rem;
+    }
+
+    /* Adjust search bar input width and font-size */
+    form input[type="text"] {
+        width: 100%;
+        font-size: 0.9rem;
+    }
+
+    .github-icon {
+        font-size: 12px; /* You can adjust the size as needed */
+        position: fixed;
+        top: 20px; /* Adjust positioning as needed */
+        right: 20px; /* Adjust positioning as needed */
+        z-index: 1000; /* To make sure it stays on top of other elements */
+    }
+
+    .lightbox {
+        flex-direction: column; /* stack images vertically */
+    }
+      .image-container2 {
+        grid-template-columns: repeat(1, 1fr);
+      }
+
+    .lightbox img {
+        width: 65%;
+        max-height: 40vh;
+        object-fit: contain;
+    }
+    .lightbox img:nth-of-type(1) {
+        margin-bottom: 0px; /* add space between images */
+    }
+
+    .lightbox-content {
+        flex-direction: column;
+        justify-content: center;
+    }
+    .lightbox-image-container {
+        flex-direction: column; /* Stack images vertically on small screens */
+    }
+
+    .artist-name-container {
+        position: relative; /* Reset the positioning on small screens */
+        transform: none; /* Reset the transform on small screens */
+    }
+    .lightbox-arrow {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 50px;
+        height: 50px;
+        font-size: 2em;
+        color: #fff;
+        text-align: center;
+        line-height: 50px;
+        cursor: pointer;
+        background-color: rgba(255, 255, 255, 0.1); /* Add some transparency */
+        z-index: 1000; /* To make sure it stays on top of other elements */
+    }
+
+    .left-arrow {
+        left: 10px;
+    }
+
+    .right-arrow {
+        right: 10px;
+    }
+
+    /* Adjust search button font-size */
+    form button {
+        font-size: 0.9rem;
+    }
+
+    /* Adjust tag font-size and padding */
+    #tag-row a {
+        font-size: 0.8rem;
+        padding: 2px 6px;
+    }
+
+    /* Adjust the gap between tags */
+    #tag-row {
+        gap: 2px;
+    }
+}
+
+.lightbox-hidden {
+    display: none;
+}
