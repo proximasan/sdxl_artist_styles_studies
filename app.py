@@ -2,13 +2,16 @@ from flask import Flask, render_template, request
 import os
 import csv
 import json
-
+import unicodedata
 
 class Config():
     SECURE_SSL_REDIRECT = True
 
 app = Flask(__name__)
 app.config.from_object(Config)
+
+def normalize_nfc(string):
+    return unicodedata.normalize('NFC', string)
 
 def get_artist_tags():
     artist_tags = {}
@@ -23,29 +26,27 @@ def get_artist_tags():
             if index < 3:
                 continue
                 
-            if len(row) >= 4:  # Adjusted condition
+            if len(row) >= 4:
                 artist_fields = [field.strip() for field in row[:2]]
                 artist_name = f"{artist_fields[1]} {artist_fields[0]}"
+                artist_name = normalize_nfc(artist_name)  # Normalize artist name
                 
                 # Check if artist is unrecognized
                 if row[3].strip().lower() == "no":
                     unrecognized_artists.add(artist_name)
                 else:
-                    # Use conditional expression to handle potential missing values
-                    tags_column = row[7] if len(row) > 7 else ""  
+                    tags_column = row[7] if len(row) > 7 else ""
                     artist_tags[artist_name] = [tag.strip() for tag in tags_column.split(",") if tag.strip() not in ["", "-"]]
-                
-                # Add alternative artist names with a space instead of a hyphen, within the same loop
-                if len(row) >= 7:  
-                    artist_fields = [field.strip() for field in row[:2]]
-                    artist_name = f"{artist_fields[1]} {artist_fields[0]}"
+
+                # Add alternative artist names with a space instead of a hyphen
+                if len(row) >= 7:
                     alternative_name = artist_name.replace("-", " ")
-                    tags_column = row[7] if len(row) > 7 else ""  # Use conditional expression
+                    alternative_name = normalize_nfc(alternative_name)  # Normalize alternative name
+                    tags_column = row[7] if len(row) > 7 else ""
                     if alternative_name not in artist_tags:
                         artist_tags[alternative_name] = [tag.strip() for tag in tags_column.split(",") if tag.strip() not in ["", "-"]]
     
     return artist_tags, unrecognized_artists
-
 
 def get_all_tags(artist_tags):
     all_tags = set()
@@ -65,18 +66,23 @@ def get_images_data(letter=None, tag=None, sort_by='alphabetical', search_query=
     image_date_map = json_data["images"]
 
     for filename, date_added in image_date_map.items():
-        if (filename.endswith(".jpg") or filename.endswith(".png")) and "_0" in filename:
-            artist_name = " ".join(filename.split("_")[:-1]).replace("-", " ").replace("  ", " ")
-            prompt_index = filename.split("_")[-1].split(".")[0]
+        normalized_filename = normalize_nfc(filename)  # Normalize filename
+        if (normalized_filename.endswith(".jpg") or normalized_filename.endswith(".png")) and "_0" in normalized_filename:
+            artist_name = " ".join(normalized_filename.split("_")[:-1]).replace("-", " ").replace("  ", " ")
+            artist_name = normalize_nfc(artist_name)  # Normalize artist name
+            prompt_index = normalized_filename.split("_")[-1].split(".")[0]
+            
             # Use local file path instead of URL
-            image_path = os.path.join("/static/grids/", filename)
+            image_path = os.path.join("/static/grids/", normalized_filename)
             tags = artist_tags.get(artist_name, [])
+            
             if artist_name in unrecognized_artists:
                 tags.append("#unrecognized")
+                
             images_data.append({
                 "artist_name": artist_name,
                 "prompt_index": prompt_index,
-                "filename": filename,
+                "filename": normalized_filename,
                 "url": image_path,
                 "date_added": date_added,
                 "tags": tags
