@@ -1,34 +1,39 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ artist_name }} - Artist Page</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-</head>
-<body>
-    <div class="github-icon">
-        <a href="https://github.com/proximasan/parrotzone.github.io" target="_blank">
-            <i class="fab fa-github"></i>
-        </a>
-    </div>
-    <div class="content-wrapper">
-        <h1 id="artist-name"  class="artist-name" onclick="copyArtistNameToClipboard()">{{ artist_name }}</h1>
-    </div>
 
-    <div class="flex1">
-  {% for image_data in images_data %}
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{ artist_name }} - Artist Page</title>
+  <link rel="stylesheet" href="/static/styles.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+
+<body>
+  <div class="github-icon">
+    <a href="https://github.com/proximasan/parrotzone.github.io" target="_blank">
+      <i class="fab fa-github"></i>
+    </a>
+  </div>
+  <div class="content-wrapper">
+    <h1 id="artist-name" class="artist-name" onclick="copyArtistNameToClipboard()">{{ artist_name }}</h1>
+  </div>
+
+  <div class="flex1">
+    {% for image_data in images_data %}
     <div class="inner1">
       <div class="image-container2">
-        <img class="side-by-side-image" src="{{ image_data.url }}" alt="{{ image_data.artist_name }} - {{ image_data.prompt_index }}" loading="lazy">
-        <img class="side-by-side-image" src="{{ image_data.url.replace('_0', '_1') }}" alt="{{ image_data.artist_name }} - {{ image_data.prompt_index }}" loading="lazy">
+        <img class="side-by-side-image" src="{{ image_data.url }}"
+          alt="{{ image_data.artist_name }} - {{ image_data.prompt_index }}" loading="lazy">
+        <img class="side-by-side-image" src="{{ image_data.url.replace('_0', '_1') }}"
+          alt="{{ image_data.artist_name }} - {{ image_data.prompt_index }}" loading="lazy">
       </div>
     </div>
-  {% endfor %}
-</div>
-<a href="{{ url_for('index') }}" class="return-to-index">↵</a>
+    {% endfor %}
+  </div>
+  <a href="/" class="return-to-index">↵</a>
 
-    <script src="{{ url_for('static', filename='scripts.js') }}"></script>
+  <script src="/static/scripts.js"></script>
 </body>
+
 </html>
