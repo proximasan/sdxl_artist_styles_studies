@@ -1,0 +1,16 @@
+[tool.poetry]
+name = "sdxl-artist-styles-studies"
+version = "0.1.0"
+description = ""
+authors = ["Your Name <you@example.com>"]
+readme = "README.md"
+packages = [{ include = "sdxl_artist_styles_studies" }]
+
+[tool.poetry.dependencies]
+python = "^3.9"
+litestar = { extras = ["standard"], version = "^2.2.1" }
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
