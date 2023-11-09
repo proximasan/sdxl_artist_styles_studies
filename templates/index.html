@@ -72,11 +72,11 @@ Y88b  d88P 888  .d88P d88P Y88b  888
     <div id="tag-row">
         <a href="/recent" class="{{ 'selected-tag' if 'recent' == request.query_params.get('tag') }}">recent</a>
         {% for tag in all_tags %}
-        <a href="/{{ tag|lower }}" class="{{ 'selected-tag' if tag|lower == request.query_params.get('tag')|lower }}">{{
+        <a href="/?tag={{ tag|lower }}#gallery" class="{{ 'selected-tag' if tag|lower == request.query_params.get('tag')|lower }}">{{
             tag }}</a>
         {% endfor %}
     </div>
-    <div class="gallery">
+    <div class="gallery" id="gallery">
         {% for image in images_data %}
         <div class="gallery-item">
             <h3 class="artist-name" id="artist-{{ loop.index0 }}" data-artist="{{ image.artist_name }}">{{

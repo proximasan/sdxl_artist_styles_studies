@@ -76,26 +76,28 @@ async def alphabetical(letter: str, request: Request) -> Template:
     )
 
 
-# @get("/{artist_name:str}")
-# def artist_view(artist_name: str) -> Template:
-#     total_image_count = get_total_image_count_from_json()
-#     artist_tags, _ = get_artist_tags()
-#     images_data = get_images_data(tag=None)  # Get data for all images
-#     images_data = [
-#         image for image in images_data if image.artist_name.lower() == artist_name.lower()
-#     ]
+@get("/artist/{tag:str}")
+async def artist_view(tag: str) -> Template:
+    total_image_count = get_total_image_count_from_json()
+    artist_tags, _ = get_artist_tags()
+    images_data = get_images_data(tag=None)  # Get data for all images
+    images_data = [
+        image for image in images_data if image.artist_name.lower() == tag.lower()
+    ]
+    all_tags = get_all_tags(artist_tags)
+    unique_artist_count = len(set(artist_tags.keys()))
 
-#     return Template(
-#         "artist.html",
-#         context={
-#             "artist_name": artist_name,
-#             "images_data": images_data,
-#             "all_tags": get_all_tags(artist_tags),
-#             "unique_artist_count": len(set(artist_tags.keys())),
-#             "total_image_count": total_image_count,
-#         },
-#     )
+    return Template(
+        "artist.html",
+        context={
+            "artist_name": tag,
+            "images_data": images_data,
+            "all_tags": all_tags,
+            "unique_artist_count": unique_artist_count,
+            "total_image_count": total_image_count,
+        },
+    )
 
 
 # router = Router("/", route_handlers=[index, recent, alphabetical, artist_view])
-router = Router("/", route_handlers=[index, recent, alphabetical])
+router = Router("/", route_handlers=[index, recent, alphabetical, artist_view])

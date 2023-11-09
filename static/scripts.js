@@ -22,7 +22,6 @@ function navigateImages(direction, event) {
     }
 }
 
-
 function handleKeyPress(event) {
     if (event.key === 'Escape') {
         closeLightbox();
@@ -51,13 +50,12 @@ function openLightbox(event, index, image1, image2, artistName) {
     document.querySelector('.artist-name-container').style.display = 'block';
     document.addEventListener('keydown', handleKeyPress);
 
-    const artistUrl = `/${encodeURIComponent(artistName)}`;
+    const artistUrl = `/artist/${encodeURIComponent(artistName)}`;
     history.pushState({ artistName }, artistName, artistUrl);
 
     document.getElementById('lightbox').addEventListener('touchstart', handleTouchStart, false);
     document.getElementById('lightbox').addEventListener('touchmove', handleTouchMove, false);
 }
-
 
 function closeLightbox(event) {
     if (!event || event.target === document.getElementById('lightbox') || event.target === document.getElementById('closeButton') || event.target === document.getElementById('closeIcon')) {
@@ -74,9 +72,6 @@ function closeLightbox(event) {
     document.getElementById('lightbox').removeEventListener('touchstart', handleTouchStart, false);
     document.getElementById('lightbox').removeEventListener('touchmove', handleTouchMove, false);
 }
-
-
-
 
 function handleTouchStart(event) {
     this.startX = event.touches[0].clientX;
@@ -165,78 +160,78 @@ document.addEventListener('DOMContentLoaded', () => {
 
     document.getElementById('toggle-cursor-button').addEventListener('click', toggleCustomCursor);
 
-// Added double click event for button
-document.getElementById('toggle-cursor-button').addEventListener('dblclick', function(e) {
-    // Define the array of image sources
-    var images = ['static/1_48.png', 'static/2_48.png', 'static/3_48.png'];
+    // Added double click event for button
+    document.getElementById('toggle-cursor-button').addEventListener('dblclick', function (e) {
+        // Define the array of image sources
+        var images = ['static/1_48.png', 'static/2_48.png', 'static/3_48.png'];
 
-    // Create 23 images
-    for (let i = 0; i < 23; i++) {
-        // Calculate a random index
-        var randomIndex = Math.floor(Math.random() * images.length);
+        // Create 23 images
+        for (let i = 0; i < 23; i++) {
+            // Calculate a random index
+            var randomIndex = Math.floor(Math.random() * images.length);
 
-        // Create a new image element
-        var img = document.createElement('img');
-        img.src = images[randomIndex];
-        img.className = 'raining-image'; // Assign the 'raining-image' class to the image
+            // Create a new image element
+            var img = document.createElement('img');
+            img.src = images[randomIndex];
+            img.className = 'raining-image'; // Assign the 'raining-image' class to the image
 
-        // Randomly position the image on the page
-        img.style.top = Math.random() * window.innerHeight + 'px';
-        img.style.left = Math.random() * window.innerWidth + 'px';
+            // Randomly position the image on the page
+            img.style.top = Math.random() * window.innerHeight + 'px';
+            img.style.left = Math.random() * window.innerWidth + 'px';
 
-        // Set random animation duration and no delay
-        var duration = Math.random() * 3 + 2;  // Random duration between 2 and 5 seconds
-        var delay = 0; // No delay
-        img.style.animationDuration = duration + 's';
-        img.style.animationDelay = delay + 's';
+            // Set random animation duration and no delay
+            var duration = Math.random() * 3 + 2;  // Random duration between 2 and 5 seconds
+            var delay = 0; // No delay
+            img.style.animationDuration = duration + 's';
+            img.style.animationDelay = delay + 's';
 
-        // When animation ends, remove the image from the document
-        img.addEventListener('animationend', function() {
-            this.remove();
-        });
+            // When animation ends, remove the image from the document
+            img.addEventListener('animationend', function () {
+                this.remove();
+            });
 
-        // Append the image to the body of the document
-        document.body.appendChild(img);
-    }
-});
+            // Append the image to the body of the document
+            document.body.appendChild(img);
+        }
+    });
 
     // Other code...
     bindGalleryItemTouchEvents();
 
     // Function to handle artist name copying
-function handleArtistNameCopy(artistNameElement) {
-    artistNameElement.addEventListener("click", function(event) {
-        // Only proceed if "data-is-copied" is not true
-        if (this.getAttribute("data-is-copied") !== "true") {
-            event.stopPropagation(); // Prevent triggering other click events
+    function handleArtistNameCopy(artistNameElement) {
+        artistNameElement.addEventListener("click", function (event) {
+            // Only proceed if "data-is-copied" is not true
+            if (this.getAttribute("data-is-copied") !== "true") {
+                event.stopPropagation(); // Prevent triggering other click events
 
-            // Create a new textarea element, set its value to the artist name, and add it to the document
-            var textarea = document.createElement("textarea");
-            textarea.value = this.innerText;
-            document.body.appendChild(textarea);
+                // Create a new textarea element, set its value to the artist name, and add it to the document
+                var textarea = document.createElement("textarea");
+                textarea.value = this.innerText;
+                document.body.appendChild(textarea);
 
-            // Select the textarea's content and copy it to the clipboard
-            textarea.select();
-            document.execCommand("copy");
+                // Select the textarea's content and copy it to the clipboard
+                textarea.select();
+                document.execCommand("copy");
 
-            // Remove the textarea from the document
-            document.body.removeChild(textarea);
+                // Remove the textarea from the document
+                document.body.removeChild(textarea);
 
-            // Change the text of the clicked element to "Copied ✓"
-            var originalText = this.innerText;
-            this.innerText = "copied ✓";
+                // Change the text of the clicked element to "Copied ✓"
+                var originalText = this.innerText;
+                this.innerText = "copied ✓";
 
-            // Set "data-is-copied" to true
-            this.setAttribute("data-is-copied", "true");
+                // Set "data-is-copied" to true
+                this.setAttribute("data-is-copied", "true");
 
-            // Change the text back to the original after 3 seconds and set "data-is-copied" to false
-            setTimeout(() => {
-                this.innerText = originalText;
-                this.setAttribute("data-is-copied", "false");
-            }, 800);
-        }
-    });
-}
+                // Change the text back to the original after 3 seconds and set "data-is-copied" to false
+                setTimeout(() => {
+                    this.innerText = originalText;
+                    this.setAttribute("data-is-copied", "false");
+                }, 800);
+            }
+        });
+    }
 
     // Get all elements with class="artist-name"
     var artistNames = document.getElementsByClassName("artist-name");

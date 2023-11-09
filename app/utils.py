@@ -11,18 +11,36 @@ from app.entitites import ImageEntity
 
 @cache
 def get_image_dict_from_json() -> dict[str, str]:
+    """Get the image dictionary from the index.json file.
+
+    Returns:
+        dict[str, str]: A dictionary of image filenames and their corresponding dates.
+    """
     index_json_path = Path("static/index.json").resolve()
     with open(index_json_path, "r") as f:
         json_data = json.load(f)
     return json_data["images"]
 
 
-def normalize_nfc(string):
+def normalize_nfc(string: str) -> str:
+    """Normalize a string to NFC.
+
+    Args:
+        string (str): The string to normalize.
+
+    Returns:
+        str: The normalized string.
+    """
     return unicodedata.normalize("NFC", string)
 
 
 @cache
 def get_artist_tags() -> Tuple[dict[str, list[str]], set[str]]:
+    """Get artist tags from the CSV file.
+
+    Returns:
+        Tuple[dict[str, list[str]], set[str]]: A tuple containing a dictionary of artist tags and a set of unrecognized artists.
+    """
     artist_tags = {}
     unrecognized_artists = set()
 
@@ -73,6 +91,14 @@ def get_artist_tags() -> Tuple[dict[str, list[str]], set[str]]:
 
 
 def get_all_tags(artist_tags: dict[str, list[str]]) -> list[str]:
+    """Get all tags from the artist tags dictionary.
+
+    Args:
+        artist_tags (dict[str, list[str]]): The artist tags dictionary.
+
+    Returns:
+        list[str]: A list of all tags.
+    """
     all_tags = set()
     for tags in artist_tags.values():
         all_tags.update(tags)
@@ -87,6 +113,17 @@ def get_images_data(
     sort_by: Literal["alphabetical", "recent"] = "alphabetical",
     search_query: bool = False,
 ) -> list[ImageEntity]:
+    """Get the images data.
+
+    Args:
+        letter (Optional[str], optional): Letter to search by. Defaults to None.
+        tag (Optional[str], optional): Tag to search by. Defaults to None.
+        sort_by (Literal[&quot;alphabetical&quot;, &quot;recent&quot;], optional): Sort for the list. Defaults to "alphabetical".
+        search_query (bool, optional): Search query. Defaults to False.
+
+    Returns:
+        list[ImageEntity]: A list of ImageEntity objects.
+    """
     images_data: list[ImageEntity] = []
     artist_tags, unrecognized_artists = get_artist_tags()
 
@@ -167,6 +204,11 @@ def get_images_data(
 
 @cache
 def get_total_image_count_from_json() -> int:
+    """Get the total image count from the index.json file.
+
+    Returns:
+        int: The total image count.
+    """
     image_date_map = get_image_dict_from_json()
     return sum(
         bool((filename.endswith((".jpg", ".png")) and "_0" in filename))
@@ -174,7 +216,18 @@ def get_total_image_count_from_json() -> int:
     )
 
 
-def filter_by_artist(search_query, images_data):
+def filter_by_artist(
+    search_query: str, images_data: list[ImageEntity]
+) -> list[ImageEntity]:
+    """Filter images by artist name.
+
+    Args:
+        search_query (str): The search query.
+        images_data (list[ImageEntity]): The list of images.
+
+    Returns:
+        list[ImageEntity]: The filtered list of images.
+    """
     return [
         image
         for image in images_data
@@ -182,14 +235,17 @@ def filter_by_artist(search_query, images_data):
     ]
 
 
-def check_grids_folder_exists():
+def check_grids_folder_exists() -> bool:
+    """Check if the grids folder exists.
+
+    Returns:
+        bool: True if the grids folder exists, False otherwise.
+    """
     return Path("static/grids/").resolve().exists()
 
 
 def download_grid_file():
-    # git clone https://huggingface.co/datasets/parrotzone/sdxl-1.0and change
-    # the path /static/grids/ in app.py line 72 to the grids path on your disk,
-    # so that you can just easily do git pull for every new addition
+    """Download the grid file from HuggingFace Hub."""
     if not check_grids_folder_exists():
         Path("static/grids/").resolve().mkdir(parents=True, exist_ok=True)
         from huggingface_hub import snapshot_download
