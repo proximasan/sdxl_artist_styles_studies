@@ -35,7 +35,7 @@ See the [open issues](https://github.com/axpecloud/modernapps-back-int-reservati
 <!-- CONTRIBUTING -->
 ## Contributing
 
-If you have a suggestion that would make this better, please clone the repo and create a pull request. Select the template that most suits your suggestion.
+If you have a suggestion that would make this better, please clone the repo and create a pull request. You can also simply open an issue with the tag "enhancement". Don't forget to give the project a star! Thanks again!
 
 1. Clone the Project (`git clone https://github.com/axpecloud/modernapps-ai-api-documentation.git`)
 2. Create your Feature Branch (`git checkout -b feature/AmazingFeature`)
@@ -53,7 +53,7 @@ If you have a suggestion that would make this better, please clone the repo and 
 
 ## Run your code
 
-To see your code in action, launch uvicorn with the following command:
+To see your code in action, launch litestar with the following command:
 
 ```sh
 litestar run -r
