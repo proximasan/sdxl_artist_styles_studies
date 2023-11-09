@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Function to terminate the Flask process when the script exits
+# Function to terminate the Litestar process when the script exits
 cleanup() {
   kill -9 $APP_PID 2>/dev/null
 }
@@ -49,22 +49,21 @@ detect_os() {
 }
 
 # Create a Python virtual environment only if it doesn't exist
-if [ ! -d "venv" ]; then
-  python3 -m venv venv
-  source venv/bin/activate
-  pip install Flask
+if [ ! -d ".venv" ]; then
+  python3 -m venv .venv
+  source .venv/bin/activate
+  pip install -r requirements.txt
 else
-  source venv/bin/activate
+  source .venv/bin/activate
 fi
 
 # Run the app in the background
-export FLASK_ENV=production
-python app.py 2>&1 | awk '/\* Running on http:\/\/127.0.0.1:5000/ {print; exit} 1' &
+litestar run -p 5000 &
 
 # Get the process ID of the app
 APP_PID=$!
 
-# Give Flask some time to initialize
+# Give Litestar some time to initialize
 sleep 2
 
 # Open the web page
