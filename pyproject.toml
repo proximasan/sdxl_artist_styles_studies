@@ -9,6 +9,7 @@ packages = [{ include = "sdxl_artist_styles_studies" }]
 [tool.poetry.dependencies]
 python = "^3.9"
 litestar = { extras = ["standard"], version = "^2.2.1" }
+huggingface-hub = "^0.19.0"
 
 
 [build-system]
