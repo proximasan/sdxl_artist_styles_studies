@@ -140,3 +140,6 @@ dmypy.json
 *.tar
 
 static/grids/
+static/.gitattributes
+static/.gitignore
+static/README.md
