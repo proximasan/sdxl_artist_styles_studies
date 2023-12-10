@@ -30,22 +30,21 @@ if %errorlevel% neq 0 (
 )
 
 :: Create Python virtual environment if it doesn't exist
-if not exist "venv" (
-    python -m venv venv
-    call venv\Scripts\activate
-    pip install Flask
+if not exist ".venv" (
+    python -m venv .venv
+    call .venv\Scripts\activate
+    pip install -r requirements.txt
 ) else (
-    call venv\Scripts\activate
+    call .venv\Scripts\activate
 )
-
-:: Run Flask app
-set FLASK_ENV=production
-start /b python app.py
-
-:: Give Flask some time to initialize
-timeout /t 2 /nobreak
 
 :: Open web page
 start http://127.0.0.1:5000
+
+echo Refresh the page after Litestar starts.
+echo Starting Litestar...
+
+:: Show message and run Litestar app
+start litestar run -p 5000
 
 :end

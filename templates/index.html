@@ -1,12 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SDXL Artist Styles Studies</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <link rel="stylesheet" href="/static/styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
+
 <body>
     <div class="github-icon">
         <a href="https://github.com/proximasan/parrotzone.github.io" target="_blank">
@@ -14,9 +16,9 @@
         </a>
     </div>
     <div class="content-wrapper">
-    
 
-<pre class="ascii-art">
+
+        <pre class="ascii-art">
  .d8888b.  8888888b. Y88b   d88P 888      
 d88P  Y88b 888  "Y88b Y88b d88P  888      
 Y88b.      888    888  Y88o88P   888      
@@ -27,72 +29,93 @@ Y88b  d88P 888  .d88P d88P Y88b  888
  "Y8888P"  8888888P" d88P   Y88b 88888888 
                                                              
     </pre>
-    <h1 class="site-title">Artist Style Studies</h1>
-    <p>prompt 1: “a portrait of a character in a scenic environment by [artist]”<br>
-prompt 2: “a building in a stunning landscape by [artist]”</p>
-    <p>brought to you by <a href="https://proximacentaurib.notion.site/proximacentaurib/parrot-zone-74a5c04d4feb4f12b52a41fc8750b205">parrotzone.art</a> <button id="toggle-cursor-button" class="custom-cursor-button" title="you wouldn't double-click on a parrot"></button>
+        <h1 class="site-title">Artist Style Studies</h1>
+        <p>prompt 1: “a portrait of a character in a scenic environment by [artist]”<br>
+            prompt 2: “a building in a stunning landscape by [artist]”</p>
+        <p>brought to you by <a
+                href="https://proximacentaurib.notion.site/proximacentaurib/parrot-zone-74a5c04d4feb4f12b52a41fc8750b205">parrotzone.art</a>
+            <button id="toggle-cursor-button" class="custom-cursor-button"
+                title="you wouldn't double-click on a parrot"></button>
 
-    <br>
-    <a href="https://twitter.com/proximasan" class="link-orange">@proximasan</a> <a href="https://twitter.com/EErratica" class="link-pink">@Eerratica</a> <a href="https://twitter.com/KyrickYoung" class="link-purple">@KyrickYoung</a> <a href="https://twitter.com/sureailabs" class="link-green">@sureailabs</a>
-    <br><br>
-    number of styles tested here: {{ total_image_count }}
-    <br>
-    <a href="https://proximacentaurib.notion.site/About-Image-Synthesis-Style-Studies-4dcbd554f4b0403d802dc5b26fb3b8e9">→ about this project ←</a>
-    </p>
-    <form action="/" method="get">
-        <input type="text" name="search" placeholder="search for a name ヽ(￣ω￣ )" value="{{ request.args.get('search', '') }}">
-        <button type="submit">Search</button>
-    </form>
-    <p>made with SDXL 1.0 ᕙ(  •̀ ᗜ •́  )ᕗ  steps: 20 | cfg scale: 7 | no refiner (•ˋ _ ˊ•) | random seeds <br> if you want to contribute you can use this <a href="https://github.com/kyrick/parrot-tools/blob/main/🦜_Parrot_Diffusion_Studies.ipynb">notebook</a> to make the grids! <br>also available as a <a href="https://huggingface.co/datasets/parrotzone/sdxl-1.0">huggingface dataset</a> 
-  <img src="{{ url_for('static', filename='hf-logo.png') }}" alt="Hugging Face Logo" class="hf-logo">
-</p>
+            <br>
+            <a href="https://twitter.com/proximasan" class="link-orange">@proximasan</a> <a
+                href="https://twitter.com/EErratica" class="link-pink">@Eerratica</a> <a
+                href="https://twitter.com/KyrickYoung" class="link-purple">@KyrickYoung</a> <a
+                href="https://twitter.com/sureailabs" class="link-green">@sureailabs</a>
+            <br><br>
+            number of styles tested here: {{ total_image_count }}
+            <br>
+            <a
+                href="https://proximacentaurib.notion.site/About-Image-Synthesis-Style-Studies-4dcbd554f4b0403d802dc5b26fb3b8e9">→
+                about this project ←</a>
+        </p>
+        <form action="/" method="get">
+            <input type="text" name="search" placeholder="search for a name ヽ(￣ω￣ )"
+                value="{{ request.query_params.get('search', '') }}">
+            <button type="submit">Search</button>
+        </form>
+        <p>made with SDXL 1.0 ᕙ( •̀ ᗜ •́ )ᕗ steps: 20 | cfg scale: 7 | no refiner (•ˋ _ ˊ•) | random seeds <br> if you
+            want to contribute you can use this <a
+                href="https://github.com/kyrick/parrot-tools/blob/main/🦜_Parrot_Diffusion_Studies.ipynb">notebook</a>
+            to make the grids! <br>also available as a <a
+                href="https://huggingface.co/datasets/parrotzone/sdxl-1.0">huggingface dataset</a>
+            <img src="/static/hf-logo.png" alt="Hugging Face Logo" class="hf-logo">
+        </p>
     </div>
     <div id="alphabetical-tabs">
-    <a href="{{ url_for('index') }}">All</a>
-    {% for letter in "ABCDEFGHIJKLMNOPQRSTUVWXYZ" %}
-        <a href="{{ url_for('alphabetical', letter=letter) }}" class="{{ 'selected-letter' if letter == request.view_args.get('letter') }}">{{ letter }}</a>
-    {% endfor %}
-</div>
-    <div id="tag-row">
-        <a href="{{ url_for('recent') }}" class="{{ 'selected-tag' if 'recent' == request.args.get('tag') }}">recent</a>
-        {% for tag in all_tags %}
-            <a href="{{ url_for('index', tag=tag|lower) }}" class="{{ 'selected-tag' if tag|lower == request.args.get('tag')|lower }}">{{ tag }}</a>
+        <a href="/">All</a>
+        {% for letter in "ABCDEFGHIJKLMNOPQRSTUVWXYZ" %}
+        <a href="/alphabetical/{{ letter }}"
+            class="{{ 'selected-letter' if letter == request.query_params.get('letter') }}">{{ letter }}</a>
         {% endfor %}
     </div>
-    <div class="gallery">
-{% for image in images_data %}
-  <div class="gallery-item">
-    <h3 class="artist-name" id="artist-{{ loop.index0 }}" data-artist="{{ image.artist_name }}">{{ image.artist_name }}</h3>
-    <div class="image-container" onclick="openLightbox(event, {{ loop.index0 }}, '{{ image.url }}', '{{ image.url.replace('_0', '_1') }}', '{{ image.artist_name }}')">
-      <img src="{{ image.url }}" alt="{{ image.artist_name }}" loading="lazy">
-      <img class="hover-image" src="{{ image.url.replace('_0', '_1') }}" alt="{{ image.artist_name }}" loading="lazy">
+    <div id="tag-row">
+        <a href="/recent" class="{{ 'selected-tag' if 'recent' == request.query_params.get('tag') }}">recent</a>
+        {% for tag in all_tags %}
+        <a href="/?tag={{ tag|lower }}#gallery" class="{{ 'selected-tag' if tag|lower == request.query_params.get('tag')|lower }}">{{
+            tag }}</a>
+        {% endfor %}
     </div>
-  </div>
-{% endfor %}
-
-</div>
-
-<div class="lightbox lightbox-hidden" id="lightbox" onclick="closeLightbox(event)">
-    <button id="closeButton" class="close-button" onclick="closeLightbox(event)">
-    <i id="closeIcon" class="fa-solid fa-circle-xmark" style="color: #ffffff;"></i> esc
-</button>
-    <div class="lightbox-arrow left-arrow" onclick="navigateImages(-1, event)"><i class="fas fa-arrow-left"></i></div>
-    <div class="lightbox-content">
-        <div class="lightbox-image-wrapper">
-            <div class="artist-name-container">
-    <p id="lightboxCaption" class="lightbox-artist-name artist-name"></p>
-            </div>
-            <div class="lightbox-image-container">
-                <img id="lightboxImage1" loading="lazy">
-                <img id="lightboxImage2" loading="lazy">
+    <div class="gallery" id="gallery">
+        {% for image in images_data %}
+        <div class="gallery-item">
+            <h3 class="artist-name" id="artist-{{ loop.index0 }}" data-artist="{{ image.artist_name }}">{{
+                image.artist_name }}</h3>
+            <div class="image-container"
+                onclick="openLightbox(event, {{ loop.index0 }}, '{{ image.url }}', '{{ image.url.replace('_0', '_1') }}', '{{ image.artist_name }}')">
+                <img src="{{ image.url }}" alt="{{ image.artist_name }}" loading="lazy">
+                <img class="hover-image" src="{{ image.url.replace('_0', '_1') }}" alt="{{ image.artist_name }}"
+                    loading="lazy">
             </div>
         </div>
+        {% endfor %}
+
     </div>
-    <div class="lightbox-arrow right-arrow" onclick="navigateImages(1, event)"><i class="fas fa-arrow-right"></i></div>
-</div>
+
+    <div class="lightbox lightbox-hidden" id="lightbox" onclick="closeLightbox(event)">
+        <button id="closeButton" class="close-button" onclick="closeLightbox(event)">
+            <i id="closeIcon" class="fa-solid fa-circle-xmark" style="color: #ffffff;"></i> esc
+        </button>
+        <div class="lightbox-arrow left-arrow" onclick="navigateImages(-1, event)"><i class="fas fa-arrow-left"></i>
+        </div>
+        <div class="lightbox-content">
+            <div class="lightbox-image-wrapper">
+                <div class="artist-name-container">
+                    <p id="lightboxCaption" class="lightbox-artist-name artist-name"></p>
+                </div>
+                <div class="lightbox-image-container">
+                    <img id="lightboxImage1" loading="lazy">
+                    <img id="lightboxImage2" loading="lazy">
+                </div>
+            </div>
+        </div>
+        <div class="lightbox-arrow right-arrow" onclick="navigateImages(1, event)"><i class="fas fa-arrow-right"></i>
+        </div>
+    </div>
 
 
 
-    <script src="{{ url_for('static', filename='scripts.js') }}"></script>
+    <script src="/static/scripts.js"></script>
 </body>
+
 </html
